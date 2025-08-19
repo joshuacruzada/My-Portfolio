@@ -217,7 +217,7 @@ function Contact() {
                             <div className="pt-4 flex justify-between items-center space-x-4">
                                 <label 
                                     htmlFor="file-upload" 
-                                    className="relative w-45 px-6 py-3 rounded-full bg-white/5 backdrop-blur-md border border-white/20 text-white font-semibold shadow-md transition-all duration-300 hover:bg-white/10 focus:outline-none focus:ring-4 focus:ring-amber-500/50 flex justify-center items-center cursor-pointer"
+                                    className="relative px-6 py-3 rounded-full bg-white/5 backdrop-blur-md border border-white/20 text-white font-semibold shadow-md transition-all duration-300 hover:bg-white/10 focus:outline-none focus:ring-4 focus:ring-amber-500/50 flex justify-center items-center cursor-pointer"
                                 >
                                     <input
                                         type="file"
@@ -226,13 +226,12 @@ function Contact() {
                                         onChange={handleChange}
                                         className="absolute inset-0 opacity-0 cursor-pointer"
                                     />
-                                    <IconPaperclip size={20} className="mr-2" />
-                                    <span>{formData.file ? formData.file.name : 'Attach a file'}</span>
+                                    <IconPaperclip size={20} />
                                 </label>
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="flex-1 px-6 py-3 rounded-full bg-amber-500 text-white font-semibold shadow-md transition-all duration-300 hover:bg-amber-600 focus:outline-none focus:ring-4 focus:ring-amber-500/50 disabled:opacity-50 disabled:cursor-not-allowed glow-effect flex justify-center items-center"
+                                    className="flex-1 px-6 py-3 rounded-full bg-gray-500 text-white font-semibold shadow-md transition-all duration-300 hover:bg-amber-600 focus:outline-none focus:ring-4 focus:ring-amber-500/50 disabled:opacity-50 disabled:cursor-not-allowed glow-effect flex justify-center items-center"
                                 >
                                     <IconSend size={20} className="mr-2" />
                                     {isSubmitting ? 'Sending...' : 'Send Message'}
