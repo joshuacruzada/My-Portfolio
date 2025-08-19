@@ -1,4 +1,3 @@
-// src/components/Projects.jsx
 import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import ProjectCard from './ProjectCard';
@@ -9,7 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSliderReady, setIsSliderReady] = useState(false); // <--- ADD THIS STATE
+  const [isSliderReady, setIsSliderReady] = useState(false);
 
   // Effect to prevent scrolling on the body when the modal is open
   useEffect(() => {
@@ -23,12 +22,28 @@ export default function Projects() {
     };
   }, [isModalOpen]);
 
-  // <--- ADD THIS NEW useEffect
+  // Use a combination of a timeout and a window resize listener
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const handleResize = () => {
+      setIsSliderReady(false);
+      setTimeout(() => {
+        setIsSliderReady(true);
+      }, 100);
+    };
+
+    // Initial render delay
+    const initialTimer = setTimeout(() => {
       setIsSliderReady(true);
-    }, 500); // 500ms delay to allow for screen dimensions to stabilize
-    return () => clearTimeout(timer); // Cleanup
+    }, 500);
+
+    // Listen for resize events
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup function
+    return () => {
+      clearTimeout(initialTimer);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   const projectsData = [
@@ -142,7 +157,7 @@ export default function Projects() {
           Projects & Activities
         </h2>
         <div className="w-full relative">
-          {isSliderReady ? ( // <--- CONDITIONAL RENDERING
+          {isSliderReady ? (
             <Slider {...sliderSettings}>
               {projectsData.map((project) => (
                 <ProjectCard
@@ -156,7 +171,8 @@ export default function Projects() {
               ))}
             </Slider>
           ) : (
-            <div>Loading projects...</div> // Or a placeholder while it loads
+            // You can replace this with a spinner or a skeleton loader
+            <div className="text-center">Loading projects...</div>
           )}
         </div>
 
