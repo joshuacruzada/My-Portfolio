@@ -140,7 +140,7 @@ export default function Projects() {
             const isNext = index === (currentCardIndex + 1) % projectsData.length;
             const isActive = index === currentCardIndex;
 
-            let cardClass = "absolute transition-all duration-700 ease-in-out";
+            let cardClass = "absolute transition-all duration-500 ease-in-out";
 
             if (isActive) {
               cardClass += " z-30 transform scale-[1.1] opacity-100";
