@@ -19,28 +19,8 @@ export default function Experiences() {
         "/Pictures/OJT.jpg",
       ],
       description: "As a Technical Support Hardware intern, my tasks involved a variety of hardware-related activities, including the unboxing, packaging, and removal of SSDs and memory from computer units. I also performed BIOS updates and checked unit specifications. Additionally, I assisted in assembling and disassembling units, installing TP-Link PCI network adapters, and conducting quality assurance on hardware components.",
-    },
-    {
-      id: 2,
-      title: "Freelance Web Developer",
-      subtitle: "Provided web development services to various clients, including building responsive websites and implementing custom features.",
-      media: ["/images/freelance_placeholder.jpg"],
-      description: "This is a placeholder for a freelance experience.",
-    },
-    {
-      id: 3,
-      title: "Open Source Contributions",
-      subtitle: "Contributed to several open-source projects on platforms like GitHub, focusing on bug fixes and feature enhancements.",
-      media: ["/videos/opensource_demo.mp4"],
-      description: "This is a placeholder for an open-source experience.",
-    },
-    {
-      id: 4,
-      title: "UI/UX Designer",
-      subtitle: "Designed user interfaces for mobile and web applications, ensuring a clean and intuitive user experience.",
-      media: ["/images/ui_ux_placeholder.jpg"],
-      description: "This is a placeholder for a UI/UX design experience.",
-    },
+    }
+
   ];
 
   const [selectedExperience, setSelectedExperience] = useState(null);

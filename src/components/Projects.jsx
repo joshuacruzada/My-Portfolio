@@ -118,27 +118,32 @@ export default function Projects() {
     setSelectedProject(null);
   };
 
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-        },
+const sliderSettings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 3, 
+  slidesToScroll: 1,
+  responsive: [
+    {
+      breakpoint: 1024, 
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        infinite: true,
+        dots: true,
       },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-        },
+    },
+    {
+      breakpoint: 600, 
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false, 
       },
-    ],
-  };
+    },
+  ],
+};
 
   return (
     <section id="projects" className="relative min-h-screen py-24 px-4 text-white">

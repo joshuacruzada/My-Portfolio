@@ -8,28 +8,7 @@ const certificationsData = [
         issuer: "Technological University of the Philippines - Manila",
         description: "This is a certification of participation in the seminar on cybersecurity and information security held on January 15, 2024. The seminar focused on fundamental concepts and best practices for navigating the digital landscape, highlighting the importance of protecting data and systems from emerging threats.",
         image: "/Pictures/Certificate 1.jpg",
-    },
-    {
-        id: 2,
-        title: "Google Cloud Digital Leader",
-        issuer: "Google",
-        description: "This certification validates knowledge of cloud computing basics and Google Cloud products and services. It demonstrates the ability to differentiate between Google Cloud’s offerings and understand the purpose of each. It is a foundational certification for those starting a career in the cloud.",
-        image: "https://placehold.co/400x300/white/000000?text=Google+Cert",
-    },
-    {
-        id: 3,
-        title: "Microsoft Certified: Azure Fundamentals",
-        issuer: "Microsoft",
-        description: "This certification covers the fundamentals of cloud concepts, Azure services, Azure workloads, security and privacy in Azure, as well as Azure pricing and support. It is a great starting point for anyone looking to work with Azure.",
-        image: "https://placehold.co/400x300/white/000000?text=Azure+Cert",
-    },
-    {
-        id: 4,
-        title: "Python for Everybody Specialization",
-        issuer: "University of Michigan (Coursera)",
-        description: "This specialization introduces fundamental programming concepts, including data structures, networked application program interfaces, and databases, using the Python programming language.",
-        image: "https://placehold.co/400x300/white/000000?text=Python+Cert",
-    },
+    }
 ];
 
 const Card = ({ certification, isTop, isNext, isPrev, onClick }) => {
