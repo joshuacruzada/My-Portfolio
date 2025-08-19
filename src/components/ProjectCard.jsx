@@ -7,10 +7,9 @@ export default function ProjectCard({ project, onClick }) {
   };
 
   return (
-    <div
-      className="transform transition duration-300 hover:scale-105 cursor-pointer"
-      onClick={onClick}
-    >
+    // The p-4 padding was removed from this outer div.
+    <div className="transform transition duration-300 hover:scale-105 cursor-pointer" onClick={onClick}>
+      {/* A new div was added to contain the card content with padding. */}
       <div className="p-4">
         <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg shadow-lg overflow-hidden">
           <div className="relative w-full h-48 bg-gray-700 flex items-center justify-center">

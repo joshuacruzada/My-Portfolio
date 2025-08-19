@@ -1,50 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import Slider from 'react-slick';
+// src/components/Projects.jsx
+import React, { useState } from 'react';
 import ProjectCard from './ProjectCard';
 import ProjectModal from './ProjectModal';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSliderReady, setIsSliderReady] = useState(false);
-
-  // Effect to prevent scrolling on the body when the modal is open
-  useEffect(() => {
-    if (isModalOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [isModalOpen]);
-
-  // Use a combination of a timeout and a window resize listener
-  useEffect(() => {
-    const handleResize = () => {
-      setIsSliderReady(false);
-      setTimeout(() => {
-        setIsSliderReady(true);
-      }, 100);
-    };
-
-    // Initial render delay
-    const initialTimer = setTimeout(() => {
-      setIsSliderReady(true);
-    }, 500);
-
-    // Listen for resize events
-    window.addEventListener('resize', handleResize);
-
-    // Cleanup function
-    return () => {
-      clearTimeout(initialTimer);
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
   const projectsData = [
     {
@@ -122,67 +85,82 @@ export default function Projects() {
     setIsModalOpen(false);
     setSelectedProject(null);
   };
+  
+  const handleNext = () => {
+    setCurrentCardIndex((prevIndex) => (prevIndex + 1) % projectsData.length);
+  };
 
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3, 
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1024, 
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600, 
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          arrows: false, 
-        },
-      },
-    ],
+  const handlePrev = () => {
+    setCurrentCardIndex((prevIndex) => (prevIndex - 1 + projectsData.length) % projectsData.length);
   };
 
   return (
-    <section id="projects" className="relative min-h-screen py-24 text-white">
+    <section id="projects" className="relative min-h-screen py-24 text-white overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-12">
-        <h2 className="text-5xl font-bold mb-12 text-center text-white">
+        <h2 className="text-5xl font-bold mb-4 text-center text-white">
           Projects & Activities
         </h2>
-        <div className="w-full relative">
-          {isSliderReady ? (
-            <Slider {...sliderSettings}>
-              {projectsData.map((project) => (
+        {/* Added a description below the title */}
+        <p className="mb-5 text-center text-lg text-gray-300 max-w-2xl mx-auto">
+          Here you can explore my projects, including web development and design, game development, and other activities that demonstrate my skills and passion for building.
+        </p>
+        
+       
+        <div className="relative flex items-center justify-center h-[350px]">
+          {projectsData.map((project, index) => {
+            const isPrev = index === (currentCardIndex - 1 + projectsData.length) % projectsData.length;
+            const isNext = index === (currentCardIndex + 1) % projectsData.length;
+            const isActive = index === currentCardIndex;
+            
+            let cardClass = "absolute transition-all duration-700 ease-in-out";
+
+            if (isActive) {
+              cardClass += " z-30 transform scale-[1.1] opacity-100";
+            } else if (isPrev) {
+              cardClass += " z-20 transform scale-[0.95] translate-x-[-200px] opacity-70";
+            } else if (isNext) {
+              cardClass += " z-20 transform scale-[0.95] translate-x-[200px] opacity-70";
+            } else {
+              cardClass += " z-10 transform scale-80 opacity-0";
+            }
+
+            return (
+              <div key={project.id} className={cardClass}>
                 <ProjectCard
-                  key={project.id}
-                  project={{
-                    ...project,
-                    media: project.media[0] 
-                  }}
+                  project={{ ...project, media: project.media[0] }}
                   onClick={() => handleProjectClick(project)}
                 />
-              ))}
-            </Slider>
-          ) : (
-            // You can replace this with a spinner or a skeleton loader
-            <div className="text-center">Loading projects...</div>
-          )}
+              </div>
+            );
+          })}
         </div>
 
-        {isModalOpen && (
-          <ProjectModal
-            project={selectedProject}
-            onClose={handleCloseModal}
-          />
-        )}
+        <div className="flex justify-center space-x-2">
+          <button
+            onClick={handlePrev}
+            className="bg-white/10 text-white rounded-full p-2.5 hover:bg-white/20 transition-colors duration-300 z-40"
+            aria-label="Previous project"
+          >
+            <FaChevronLeft size={20} />
+          </button>
+          <div className="text-sm self-center">
+            {currentCardIndex + 1} / {projectsData.length}
+          </div>
+          <button
+            onClick={handleNext}
+            className="bg-white/10 text-white rounded-full p-2.5 hover:bg-white/20 transition-colors duration-300 z-40"
+            aria-label="Next project"
+          >
+            <FaChevronRight size={20} />
+          </button>
+        </div>
       </div>
+      {isModalOpen && (
+        <ProjectModal
+          project={selectedProject}
+          onClose={handleCloseModal}
+        />
+      )}
     </section>
   );
 }
