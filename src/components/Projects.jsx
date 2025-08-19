@@ -9,6 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSliderReady, setIsSliderReady] = useState(false); // <--- ADD THIS STATE
 
   // Effect to prevent scrolling on the body when the modal is open
   useEffect(() => {
@@ -17,18 +18,24 @@ export default function Projects() {
     } else {
       document.body.style.overflow = 'auto';
     }
-    // Cleanup function to restore scrolling when the component unmounts or dependency changes
     return () => {
       document.body.style.overflow = 'auto';
     };
   }, [isModalOpen]);
+
+  // <--- ADD THIS NEW useEffect
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsSliderReady(true);
+    }, 500); // 500ms delay to allow for screen dimensions to stabilize
+    return () => clearTimeout(timer); // Cleanup
+  }, []);
 
   const projectsData = [
     {
       id: 1,
       title: "Delhai Medical Enterprise",
       subtitle: "Ordering and Inventory System",
-      // Combine all media into one array
       media: [
         "/system screenshot/LandingPage.png",
         "/system screenshot/DASHBOARD.jpg",
@@ -56,7 +63,6 @@ export default function Projects() {
       id: 2,
       title: "Coffee App UI/UX Design",
       subtitle: "Figma Prototype",
-      // Combine all media into one array
       media: [
         "/Prototype/prototype1.png",
         "/Prototype/prototype2.png",
@@ -74,7 +80,6 @@ export default function Projects() {
       id: 3,
       title: "Sneak",
       subtitle: "E-Commerce Platform",
-      // Combine all media into one array
       media: ["/Videos/MyProjDemo.mp4"],
       tools: {
         languages: ["React", "HTML", "CSS", "Java", "Java Script", "GitHub"],
@@ -91,7 +96,6 @@ export default function Projects() {
       },
       description: "Pandemic Dodger is a mobile game built with Unity and C# that combines intuitive gameplay with a timely theme. The player controls a doctor character flying on a syringe, whose goal is to dodge incoming viruses. As the game progresses, the difficulty increases as the speed of the viruses accelerates. To help the player, the game includes various good viruses that act as power-ups, providing temporary shields or other beneficial effects. The objective is to survive for as long as possible.",
     },
-
   ];
 
   const handleProjectClick = (project) => {
@@ -104,32 +108,32 @@ export default function Projects() {
     setSelectedProject(null);
   };
 
-const sliderSettings = {
-  dots: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 3, 
-  slidesToScroll: 1,
-  responsive: [
-    {
-      breakpoint: 1024, 
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 1,
-        infinite: true,
-        dots: true,
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3, 
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024, 
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
       },
-    },
-    {
-      breakpoint: 600, 
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        arrows: false, 
+      {
+        breakpoint: 600, 
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false, 
+        },
       },
-    },
-  ],
-};
+    ],
+  };
 
   return (
     <section id="projects" className="relative min-h-screen py-24 text-white">
@@ -137,20 +141,23 @@ const sliderSettings = {
         <h2 className="text-5xl font-bold mb-12 text-center text-white">
           Projects & Activities
         </h2>
-       <  div className="w-full relative">
-          <Slider {...sliderSettings}>
-            {projectsData.map((project) => (
-              <ProjectCard
-                key={project.id}
-                project={{
-                  ...project,
-                  media: project.media[0] 
-                }}
-                onClick={() => handleProjectClick(project)}
-              />
-            ))}
-
-          </Slider>
+        <div className="w-full relative">
+          {isSliderReady ? ( // <--- CONDITIONAL RENDERING
+            <Slider {...sliderSettings}>
+              {projectsData.map((project) => (
+                <ProjectCard
+                  key={project.id}
+                  project={{
+                    ...project,
+                    media: project.media[0] 
+                  }}
+                  onClick={() => handleProjectClick(project)}
+                />
+              ))}
+            </Slider>
+          ) : (
+            <div>Loading projects...</div> // Or a placeholder while it loads
+          )}
         </div>
 
         {isModalOpen && (
