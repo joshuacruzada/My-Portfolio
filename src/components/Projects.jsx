@@ -132,19 +132,18 @@ const sliderSettings = {
 };
 
   return (
-    <section id="projects" className="relative min-h-screen py-24 px-4 text-white sm:px-8 lg:px-12">
-      <div className="mx-auto max-w-7xl">
+    <section id="projects" className="relative min-h-screen py-24 text-white">
+      <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-12">
         <h2 className="text-5xl font-bold mb-12 text-center text-white">
           Projects & Activities
         </h2>
-        <div className="mx-auto relative max-w-full md:max-w-5xl">
+       <  div className="w-full relative">
           <Slider {...sliderSettings}>
             {projectsData.map((project) => (
               <ProjectCard
                 key={project.id}
                 project={{
                   ...project,
-                  // Pass only the first media item for the thumbnail
                   media: project.media[0] 
                 }}
                 onClick={() => handleProjectClick(project)}
