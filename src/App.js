@@ -10,8 +10,8 @@ import Certifications from './components/Certifications';
 import Contact from './components/Contact';
 function App() {
  return (
-    <div className="relative min-h-screen bg-black">
-      {/* This is the single, full-page background effect */}
+     <div className="relative min-h-screen bg-black overflow-x-hidden">
+
       <div className="fixed inset-0 z-0">
         <Particles
           particleColors={["#ffffff", "#ffffff", "#ffffff"]}
@@ -27,9 +27,9 @@ function App() {
         />
       </div>
 
-      <Navbar />
 
       <div className="relative z-10">
+        <Navbar />
         <Hero />
         <About />
         <Projects /> 

@@ -1,4 +1,6 @@
+// src/components/Navbar.jsx
 import { useState } from 'react';
+import { IconMenu2, IconX } from '@tabler/icons-react'; // Import the icons
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,20 +33,17 @@ export default function Navbar() {
       {/* Mobile Hamburger Menu Button */}
       <div className="fixed top-4 right-4 z-50 lg:hidden">
         <button onClick={toggleMenu} className="text-white focus:outline-none p-2 rounded-lg bg-white/10 backdrop-blur-md border border-white/20">
-          <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-          </svg>
+          {/* Replace SVG with Tabler Icon */}
+          <IconMenu2 size={32} />
         </button>
       </div>
-
 
       {isMenuOpen && (
         <div className="fixed top-0 left-0 w-full h-screen bg-black bg-opacity-90 z-40 flex flex-col items-center justify-center space-y-8 lg:hidden">
           <div className="absolute top-4 right-4 p-2 rounded-lg bg-white/10 backdrop-blur-md border border-white/20">
             <button onClick={toggleMenu} className="text-white focus:outline-none">
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
+              {/* Replace SVG with Tabler Icon */}
+              <IconX size={32} />
             </button>
           </div>
           {navLinks}
