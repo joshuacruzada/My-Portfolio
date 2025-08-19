@@ -133,7 +133,7 @@ const sliderSettings = {
 
   return (
     <section id="projects" className="relative min-h-screen py-24 px-4 text-white sm:px-8 lg:px-12">
-      <div className="container mx-auto">
+      <div className="mx-auto max-w-7xl">
         <h2 className="text-5xl font-bold mb-12 text-center text-white">
           Projects & Activities
         </h2>
@@ -150,7 +150,7 @@ const sliderSettings = {
                 onClick={() => handleProjectClick(project)}
               />
             ))}
-            
+
           </Slider>
         </div>
 
