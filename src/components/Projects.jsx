@@ -1,5 +1,5 @@
 // src/components/Projects.jsx
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import ProjectCard from './ProjectCard';
 import ProjectModal from './ProjectModal';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
@@ -8,6 +8,9 @@ export default function Projects() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
+
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
   const projectsData = [
     {
@@ -85,13 +88,34 @@ export default function Projects() {
     setIsModalOpen(false);
     setSelectedProject(null);
   };
-  
+
   const handleNext = () => {
     setCurrentCardIndex((prevIndex) => (prevIndex + 1) % projectsData.length);
   };
 
   const handlePrev = () => {
     setCurrentCardIndex((prevIndex) => (prevIndex - 1 + projectsData.length) % projectsData.length);
+  };
+
+  // New touch handlers for swiping
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e) => {
+    touchEndX.current = e.changedTouches[0].clientX;
+    const swipeDistance = touchStartX.current - touchEndX.current;
+
+    // A minimum swipe distance to trigger a slide
+    const minSwipeDistance = 50;
+
+    if (swipeDistance > minSwipeDistance) {
+      // Swiped left, go to next card
+      handleNext();
+    } else if (swipeDistance < -minSwipeDistance) {
+      // Swiped right, go to previous card
+      handlePrev();
+    }
   };
 
   return (
@@ -104,14 +128,18 @@ export default function Projects() {
         <p className="mb-5 text-center text-lg text-gray-300 max-w-2xl mx-auto">
           Here you can explore my projects, including web development and design, game development, and other activities that demonstrate my skills and passion for building.
         </p>
-        
-       
-        <div className="relative flex items-center justify-center h-[350px]">
+
+        {/* Container with touch events */}
+        <div
+          className="relative flex items-center justify-center h-[350px]"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           {projectsData.map((project, index) => {
             const isPrev = index === (currentCardIndex - 1 + projectsData.length) % projectsData.length;
             const isNext = index === (currentCardIndex + 1) % projectsData.length;
             const isActive = index === currentCardIndex;
-            
+
             let cardClass = "absolute transition-all duration-700 ease-in-out";
 
             if (isActive) {
