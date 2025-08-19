@@ -91,21 +91,7 @@ export default function Projects() {
       },
       description: "Pandemic Dodger is a mobile game built with Unity and C# that combines intuitive gameplay with a timely theme. The player controls a doctor character flying on a syringe, whose goal is to dodge incoming viruses. As the game progresses, the difficulty increases as the speed of the viruses accelerates. To help the player, the game includes various good viruses that act as power-ups, providing temporary shields or other beneficial effects. The objective is to survive for as long as possible.",
     },
-    {
-      id: 5,
-      title: "Portfolio Website",
-      subtitle: "React & Tailwind",
 
-      media: [
-        "/Placeholder/PortfolioHome.png", 
-        "/Placeholder/PortfolioContact.png", 
-      ],
-      tools: {
-        languages: ["React", "HTML", "CSS", "Tailwind", "JavaScript"],
-      },
-      description: "My personal portfolio, a single-page application built with React and styled with Tailwind CSS. It features a particle background and a smooth scrolling experience.",
-      link: "https://github.com/your-username/portfolio",
-    },
   ];
 
   const handleProjectClick = (project) => {
@@ -146,12 +132,12 @@ const sliderSettings = {
 };
 
   return (
-    <section id="projects" className="relative min-h-screen py-24 px-4 text-white">
+    <section id="projects" className="relative min-h-screen py-24 px-4 text-white sm:px-8 lg:px-12">
       <div className="container mx-auto">
         <h2 className="text-5xl font-bold mb-12 text-center text-white">
           Projects & Activities
         </h2>
-        <div className="mx-auto max-w-5xl relative">
+        <div className="mx-auto relative max-w-full md:max-w-5xl">
           <Slider {...sliderSettings}>
             {projectsData.map((project) => (
               <ProjectCard
@@ -164,6 +150,7 @@ const sliderSettings = {
                 onClick={() => handleProjectClick(project)}
               />
             ))}
+            
           </Slider>
         </div>
 
